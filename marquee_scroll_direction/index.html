@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .square{
+            height: 100vh;
+        }
+    </style>
+    <style>
+        .section-resource {
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        display: flex;
+        }
+
+        .marquee-advanced {
+        width: 100vw;
+        position: relative;
+        overflow: hidden;
+        }
+
+        .marquee-advanced__scroll {
+        will-change: transform;
+        width: 100%;
+        display: flex;
+        position: relative;
+        }
+
+        .marquee-advanced__collection {
+        will-change: transform;
+        display: flex;
+        position: relative;
+        }
+
+        .marquee-advanced__item {
+        justify-content: flex-start;
+        align-items: center;
+        font-size: max(4em, 8vw);
+        display: flex;
+        }
+
+        .marquee__advanced__p {
+        white-space: nowrap;
+        margin-bottom: 0;
+        margin-right: .25em;
+        font-size: 1em;
+        }
+
+        .marquee__advanced__arrow-svg {
+        color: #ff4c24;
+        width: 1em;
+        margin-right: .25em;
+        position: relative;
+        }
+
+        .marquee-advanced__item-width {
+        background-color: #131313;
+        border-radius: 1vw;
+        justify-content: center;
+        align-items: center;
+        width: 18vw;
+        height: 18vw;
+        margin: 1vw;
+        display: flex;
+        }
+
+
+        /* Optional: Rotating arrow left/right based on Scroll Direction */
+
+        .marquee__advanced__arrow-svg,
+        [data-marquee-direction="right"][data-marquee-status="inverted"] .marquee__advanced__arrow-svg {
+        transition: 0.5s cubic-bezier(0.625, 0.05, 0, 1);
+        transform: rotate(-180deg);
+        }
+
+        [data-marquee-status="inverted"] .marquee__advanced__arrow-svg,
+        [data-marquee-direction="right"][data-marquee-status="normal"] .marquee__advanced__arrow-svg {
+        transform: rotate(-359.999deg);
+        }
+    </style>
+
+   
+    <script src="./script.js" defer></script>
+</head>
+<body>
+    <div class="square"></div>
+
+    <section class="section-resource">
+        <!-- Based on font size -->
+        <div data-marquee-duplicate="2" data-marquee-scroll-direction-target="" data-marquee-direction="left" data-marquee-status="normal" data-marquee-speed="15" data-marquee-scroll-speed="10" class="marquee-advanced">
+          <div data-marquee-scroll-target="" class="marquee-advanced__scroll">
+            <div data-marquee-collection-target="" class="marquee-advanced__collection">
+              <div class="marquee-advanced__item">
+                <p class="marquee__advanced__p">Marquee w/ Scroll Direction -</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="square"></div>
+        <!-- Based on item width -->
+        <div data-marquee-duplicate="2" data-marquee-scroll-direction-target="" data-marquee-direction="right" data-marquee-status="normal" data-marquee-speed="15" data-marquee-scroll-speed="10" class="marquee-advanced">
+          <div data-marquee-scroll-target="" class="marquee-advanced__scroll">
+            <div data-marquee-collection-target="" class="marquee-advanced__collection">
+              <div class="marquee-advanced__item-width"></div>
+              <div class="marquee-advanced__item-width"></div>
+              <div class="marquee-advanced__item-width"></div>
+              <div class="marquee-advanced__item-width"></div>
+              <div class="marquee-advanced__item-width"></div>
+          </div>
+        </div>
+        <div class="square"></div>
+
+      </section>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</body>
+</html>
