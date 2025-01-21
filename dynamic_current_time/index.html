@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1a1a1a;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <p data-current-time="America/New_York">
+        <span data-current-time-hours>9</span>:
+        <span data-current-time-minutes>00</span>:
+        <span data-current-time-seconds>24</span> 
+        <span data-current-time-timezone>CET</span>
+      </p>
+    <script>
+        function initDynamicCurrentTime() {
+            const defaultTimezone = "Europe/Amsterdam";
+
+            // Helper function to format numbers with leading zero
+            const formatNumber = (number) => number.toString().padStart(2, '0');
+
+            // Function to create a time formatter with the correct timezone
+            const createFormatter = (timezone) => {
+                return new Intl.DateTimeFormat([], {
+                timeZone: timezone,
+                timeZoneName: 'short',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false, // Optional: Remove to match your simpler script
+                });
+            };
+
+            // Function to parse the formatted string into parts
+            const parseFormattedTime = (formattedDateTime) => {
+                const match = formattedDateTime.match(/(\d+):(\d+):(\d+)\s*([\w+]+)/);
+                if (match) {
+                return {
+                    hours: match[1],
+                    minutes: match[2],
+                    seconds: match[3],
+                    timezone: match[4], // Handles both GMT+X and CET cases
+                };
+                }
+                return null;
+            };
+
+            // Function to update the time for all elements
+            const updateTime = () => {
+                document.querySelectorAll('[data-current-time]').forEach((element) => {
+                const timezone = element.getAttribute('data-current-time') || defaultTimezone;
+                const formatter = createFormatter(timezone);
+                const now = new Date();
+                const formattedDateTime = formatter.format(now);
+
+                const timeParts = parseFormattedTime(formattedDateTime);
+                if (timeParts) {
+                    const {
+                    hours,
+                    minutes,
+                    seconds,
+                    timezone
+                    } = timeParts;
+
+                    // Update child elements if they exist
+                    const hoursElem = element.querySelector('[data-current-time-hours]');
+                    const minutesElem = element.querySelector('[data-current-time-minutes]');
+                    const secondsElem = element.querySelector('[data-current-time-seconds]');
+                    const timezoneElem = element.querySelector('[data-current-time-timezone]');
+
+                    if (hoursElem) hoursElem.textContent = hours;
+                    if (minutesElem) minutesElem.textContent = minutes;
+                    if (secondsElem) secondsElem.textContent = seconds;
+                    if (timezoneElem) timezoneElem.textContent = timezone;
+                }
+                });
+            };
+
+            // Initial update and interval for subsequent updates
+            updateTime();
+            setInterval(updateTime, 1000);
+            }
+
+            // Initialize on DOMContentLoaded
+            document.addEventListener('DOMContentLoaded', () => {
+            initDynamicCurrentTime();
+        });
+    </script>
+</body>
+</html>
