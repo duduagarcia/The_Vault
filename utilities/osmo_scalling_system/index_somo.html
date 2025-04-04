@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #dcdcda;
+      }
+
+      /* ------------------------- Scaling System by Osmo [https://osmo.supply/] -------------------------  */
+
+      /* Desktop */
+      :root {
+        --size-unit: 16; /* body font-size in design - no px */
+        --size-container-ideal: 1440; /* screen-size in design - no px */
+        --size-container-min: 992px;
+        --size-container-max: 1920px;
+        --size-container: clamp(
+          var(--size-container-min),
+          100vw,
+          var(--size-container-max)
+        );
+        --size-font: calc(
+          var(--size-container) /
+            (var(--size-container-ideal) / var(--size-unit))
+        );
+      }
+
+      /* Tablet */
+      @media screen and (max-width: 991px) {
+        :root {
+          --size-container-ideal: 834; /* screen-size in design - no px */
+          --size-container-min: 768px;
+          --size-container-max: 991px;
+        }
+      }
+
+      /* Mobile Landscape */
+      @media screen and (max-width: 767px) {
+        :root {
+          --size-container-ideal: 550; /* screen-size in design - no px */
+          --size-container-min: 480px;
+          --size-container-max: 767px;
+        }
+      }
+
+      /* Mobile Portrait */
+      @media screen and (max-width: 479px) {
+        :root {
+          --size-container-ideal: 390; /* screen-size in design - no px */
+          --size-container-min: 320px;
+          --size-container-max: 479px;
+        }
+      }
+
+      /* ------------------------- IMPLEMENTATION ------------------------- */
+      body {
+        font-size: var(--size-font);
+      }
+
+      /* ------------------------- CONTAINERS ------------------------- */
+      .container {
+        max-width: var(--size-container);
+      }
+
+      .container.medium {
+        max-width: calc(var(--size-container) * 0.85);
+      }
+
+      .container.small {
+        max-width: calc(var(--size-container) * 0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="link-group">
+        <a href="#" class="underline-link">Underline Link</a>
+        <a href="#" class="underline-link is--alt">Animation</a>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #dcdcda;
+      }
+
+      /* OSMO */
+      .flickity-slider-group {
+        width: 100%;
+        position: relative;
+      }
+
+      .flickity-viewport {
+        overflow: visible;
+        width: 100%;
+      }
+
+      .flickity-list {
+        width: 100%;
+        display: flex;
+      }
+
+      .flickity-item {
+        width: calc(
+          (99.99% / var(--flick-col)) -
+            (var(--flick-gap) * ((var(--flick-col) - 1) / var(--flick-col)))
+        );
+        margin-right: var(--flick-gap);
+        flex-shrink: 0;
+      }
+
+      .flickity-viewport {
+        overflow: visible;
+        width: 100%;
+      }
+
+      .flickity-controls {
+        pointer-events: none;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .flickity-arrows {
+        pointer-events: none;
+        justify-content: space-between;
+        align-items: center;
+        width: calc(100% + 3em);
+        display: flex;
+        position: relative;
+      }
+
+      .flickity-arrow {
+        pointer-events: auto;
+        color: #efeeec;
+        cursor: pointer;
+        background-color: #131313;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        width: 3em;
+        height: 3em;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
+        display: flex;
+      }
+
+      .flickity-arrow.is--flipped {
+        transform: scaleX(-1);
+      }
+
+      [data-flickity-control][disabled] {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .flickity-dots {
+        width: 100%;
+        padding-top: 4em;
+        position: absolute;
+        top: 100%;
+        left: 0;
+      }
+
+      .flickity-dots-list {
+        grid-column-gap: 0.75em;
+        grid-row-gap: 0.75em;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+
+      .flickity-dot {
+        pointer-events: auto;
+        background-color: #d0cfcd;
+        border-radius: 50%;
+        width: 0.75em;
+        height: 0.75em;
+        cursor: pointer;
+      }
+
+      [data-flickity-dot="active"] {
+        background-color: #131313;
+      }
+
+      /* Turn Flickity on */
+      [data-flickity-status="active"] [data-flickity-list]::after {
+        content: "flickity";
+        display: none;
+      }
+
+      [data-flickity-status="active"] [data-flickity-list] {
+        display: block;
+      }
+
+      /* ------------ Flickity Slider - Cards  ------------ */
+
+      /* Desktop */
+      @media screen and (min-width: 992px) {
+        [data-flickity-type="cards"] {
+          --flick-col: 3;
+          --flick-gap: 2em;
+        }
+        /* Turn Flickity OFF & Hide Controls */
+        [data-flickity-type="cards"]:is(
+            [data-flickity-count="1"],
+            [data-flickity-count="2"],
+            [data-flickity-count="3"]
+          )
+          [data-flickity-list]::after {
+          content: "";
+          display: block;
+        }
+        [data-flickity-type="cards"]:is(
+            [data-flickity-count="1"],
+            [data-flickity-count="2"],
+            [data-flickity-count="3"]
+          )
+          [data-flickity-list] {
+          display: flex;
+        }
+        [data-flickity-type="cards"]:is(
+            [data-flickity-count="1"],
+            [data-flickity-count="2"],
+            [data-flickity-count="3"]
+          )
+          [data-flickity-controls] {
+          display: none;
+        }
+        [data-flickity-type="cards"]
+          [data-flickity-dot]:nth-last-child(-n + 2) {
+          display: none;
+        } /* Hide last two dots */
+      }
+
+      /* Tablet */
+      @media (min-width: 768px) and (max-width: 991px) {
+        [data-flickity-type="cards"] {
+          --flick-col: 2.5;
+          --flick-gap: 1.5em;
+        }
+        /* Turn Flickity OFF & Hide Controls */
+        [data-flickity-type="cards"]:is(
+            [data-flickity-count="1"],
+            [data-flickity-count="2"]
+          )
+          [data-flickity-list]::after {
+          content: "";
+          display: block;
+        }
+        [data-flickity-type="cards"]:is(
+            [data-flickity-count="1"],
+            [data-flickity-count="2"]
+          )
+          [data-flickity-list] {
+          display: flex;
+        }
+        [data-flickity-type="cards"]:is(
+            [data-flickity-count="1"],
+            [data-flickity-count="2"]
+          )
+          [data-flickity-controls] {
+          display: none;
+        }
+        [data-flickity-type="cards"] [data-flickity-dot]:nth-last-child(1) {
+          display: none;
+        } /* Hide last dot */
+      }
+
+      /* Mobile */
+      @media screen and (max-width: 767px) {
+        [data-flickity-type="cards"] {
+          --flick-col: 1.5;
+          --flick-gap: 1em;
+        }
+        /* Turn Flickity OFF & Hide Controls */
+        [data-flickity-type="cards"]:is([data-flickity-count="1"])
+          [data-flickity-list]::after {
+          content: "";
+          display: block;
+        }
+        [data-flickity-type="cards"]:is([data-flickity-count="1"])
+          [data-flickity-list] {
+          display: flex;
+        }
+        [data-flickity-type="cards"]:is([data-flickity-count="1"])
+          [data-flickity-controls] {
+          display: none;
+        }
+      }
+
+      /* Demo Card */
+
+      .demo-card {
+        grid-column-gap: 1.25em;
+        grid-row-gap: 1.25em;
+        background-color: #efeeec;
+        border-radius: 1.5em;
+        flex-flow: column;
+        width: 100%;
+        padding: 1em 1em 1.5em;
+        display: flex;
+        position: relative;
+      }
+
+      .before__125 {
+        pointer-events: none;
+        padding-top: 100%;
+      }
+
+      .demo-card__image {
+        background-color: #e2e1df;
+        border-radius: 0.5em;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        display: flex;
+        position: relative;
+      }
+
+      .demo-card__h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0.5em;
+        font-size: 2em;
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .demo-card__emoji {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 5em;
+        font-weight: 500;
+        line-height: 1;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div
+        class="flickity-slider-group"
+        data-flickity-status="not-active"
+        data-flickity-type="cards"
+        data-flickity-count
+      >
+        <div data-flickity-list="" class="flickity-list">
+          <div data-flickity-item="" class="flickity-item">
+            <div class="demo-card">
+              <div class="demo-card__image">
+                <div class="before__125"></div>
+                <h2 class="demo-card__emoji">🎾</h2>
+              </div>
+              <h2 class="demo-card__h2">Tennis</h2>
+            </div>
+          </div>
+          <div data-flickity-item="" class="flickity-item">
+            <div class="demo-card">
+              <div class="demo-card__image">
+                <div class="before__125"></div>
+                <h2 class="demo-card__emoji">⚾</h2>
+              </div>
+              <h2 class="demo-card__h2">Baseball</h2>
+            </div>
+          </div>
+          <div data-flickity-item="" class="flickity-item">
+            <div class="demo-card">
+              <div class="demo-card__image">
+                <div class="before__125"></div>
+                <h2 class="demo-card__emoji">🏀</h2>
+              </div>
+              <h2 class="demo-card__h2">Basketball</h2>
+            </div>
+          </div>
+          <div data-flickity-item="" class="flickity-item">
+            <div class="demo-card">
+              <div class="demo-card__image">
+                <div class="before__125"></div>
+                <h2 class="demo-card__emoji">⚽</h2>
+              </div>
+              <h2 class="demo-card__h2">Soccer</h2>
+            </div>
+          </div>
+          <div data-flickity-item="" class="flickity-item">
+            <div class="demo-card">
+              <div class="demo-card__image">
+                <div class="before__125"></div>
+                <h2 class="demo-card__emoji">🏈</h2>
+              </div>
+              <h2 class="demo-card__h2">Football</h2>
+            </div>
+          </div>
+          <div data-flickity-item="" class="flickity-item">
+            <div class="demo-card">
+              <div class="demo-card__image">
+                <div class="before__125"></div>
+                <h2 class="demo-card__emoji">🏐</h2>
+              </div>
+              <h2 class="demo-card__h2">Volleyball</h2>
+            </div>
+          </div>
+          <div data-flickity-item="" class="flickity-item">
+            <div class="demo-card">
+              <div class="demo-card__image">
+                <div class="before__125"></div>
+                <h2 class="demo-card__emoji">🎱</h2>
+              </div>
+              <h2 class="demo-card__h2">Pool</h2>
+            </div>
+          </div>
+        </div>
+        <div data-flickity-controls="" class="flickity-controls">
+          <div class="flickity-arrows">
+            <div
+              data-flickity-control="prev"
+              class="flickity-arrow is--flipped"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="100%"
+                viewbox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M14 19L21 12L14 5"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></path>
+                <path
+                  d="M21 12H2"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></path>
+              </svg>
+            </div>
+            <div data-flickity-control="next" class="flickity-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="100%"
+                viewbox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M14 19L21 12L14 5"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></path>
+                <path
+                  d="M21 12H2"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flickity-dots">
+            <div class="flickity-dots-list">
+              <div data-flickity-dot="active" class="flickity-dot"></div>
+              <div data-flickity-dot="" class="flickity-dot"></div>
+              <div data-flickity-dot="" class="flickity-dot"></div>
+              <div data-flickity-dot="" class="flickity-dot"></div>
+              <div data-flickity-dot="" class="flickity-dot"></div>
+              <div data-flickity-dot="" class="flickity-dot"></div>
+              <div data-flickity-dot="" class="flickity-dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/flickity@2.3.0/dist/flickity.css"
+    />
+
+    <!-- JS -->
+    <script src="https://unpkg.com/flickity@2.3.0/dist/flickity.pkgd.min.js"></script>
+    <script>
+      function initFlickitySlider() {
+        // Select all slider groups with the specified data attribute
+        const sliderCards = document.querySelectorAll(
+          '[data-flickity-type="cards"]'
+        );
+
+        sliderCards.forEach((slider, index) => {
+          // Give each slider a unique ID
+          const sliderIndexID = "flickity-type-cards-id-" + index;
+          slider.id = sliderIndexID;
+
+          // Count slides
+          let slidesCount = slider.querySelectorAll(
+            "[data-flickity-item]"
+          ).length;
+          slider.setAttribute("data-flickity-count", slidesCount);
+
+          // Set Active status
+          slider.setAttribute("data-flickity-status", "active");
+
+          // Select the element containing the slide list
+          const sliderEl = document.querySelector(
+            "#" + sliderIndexID + " [data-flickity-list]"
+          );
+          if (!sliderEl) return;
+
+          // Initialize Flickity on the slider element
+          const flickitySlider = new Flickity(sliderEl, {
+            watchCSS: true,
+            contain: true,
+            wrapAround: false,
+            dragThreshold: 10,
+            prevNextButtons: false,
+            pageDots: false,
+            cellAlign: "left",
+            selectedAttraction: 0.015,
+            friction: 0.25,
+            percentPosition: true,
+            freeScroll: false,
+            on: {
+              dragStart: () => {
+                // Disable pointer events during drag
+                sliderEl.style.pointerEvents = "none";
+              },
+              dragEnd: () => {
+                // Re-enable pointer events after drag
+                sliderEl.style.pointerEvents = "auto";
+              },
+              change: function () {
+                updateArrows();
+                updateDots();
+              },
+            },
+          });
+
+          // Get Flickity instance data
+          const flickity = Flickity.data(sliderEl);
+
+          // Set up previous click functionality
+          const prevButton = slider.querySelector(
+            '[data-flickity-control="prev"]'
+          );
+          if (prevButton) {
+            prevButton.setAttribute("disabled", "");
+            prevButton.addEventListener("click", function () {
+              flickity.previous();
+            });
+          }
+
+          // Set up next click functionality
+          const nextButton = slider.querySelector(
+            '[data-flickity-control="next"]'
+          );
+          if (nextButton) {
+            nextButton.addEventListener("click", function () {
+              flickity.next();
+            });
+          }
+
+          // Update arrows using CSS var(--flick-col) count
+          function updateArrows() {
+            const inviewColumns = parseInt(
+              window.getComputedStyle(sliderEl).getPropertyValue("--flick-col"),
+              10
+            );
+            if (!flickity.cells[flickity.selectedIndex - 1]) {
+              if (prevButton) prevButton.setAttribute("disabled", "disabled");
+              if (nextButton) nextButton.removeAttribute("disabled");
+            } else if (
+              !flickity.cells[flickity.selectedIndex + inviewColumns]
+            ) {
+              if (nextButton) nextButton.setAttribute("disabled", "disabled");
+              if (prevButton) prevButton.removeAttribute("disabled");
+            } else {
+              if (prevButton) prevButton.removeAttribute("disabled");
+              if (nextButton) nextButton.removeAttribute("disabled");
+            }
+          }
+
+          // Set up dots click functionality
+          const dots = slider.querySelectorAll("[data-flickity-dot]");
+          if (dots.length) {
+            dots.forEach((dot, index) => {
+              dot.addEventListener("click", function () {
+                const inviewColumns = parseInt(
+                  window
+                    .getComputedStyle(sliderEl)
+                    .getPropertyValue("--flick-col"),
+                  10
+                );
+                const maxIndex = flickity.cells.length - inviewColumns;
+                let targetIndex = index;
+                if (targetIndex > maxIndex) {
+                  targetIndex = maxIndex;
+                }
+                flickity.select(targetIndex);
+              });
+            });
+          }
+
+          // Update dots using CSS var(--flick-col) count
+          function updateDots() {
+            const inviewColumns = parseInt(
+              window.getComputedStyle(sliderEl).getPropertyValue("--flick-col"),
+              10
+            );
+            const maxIndex = flickity.cells.length - inviewColumns;
+            const activeIndex =
+              flickity.selectedIndex < maxIndex
+                ? flickity.selectedIndex
+                : maxIndex;
+            const dots = slider.querySelectorAll("[data-flickity-dot]");
+            dots.forEach((dot, index) => {
+              dot.setAttribute(
+                "data-flickity-dot",
+                index === activeIndex ? "active" : ""
+              );
+            });
+          }
+        });
+      }
+
+      // Initialize Flickity Slider
+      document.addEventListener("DOMContentLoaded", function () {
+        initFlickitySlider();
+      });
+    </script>
+
+    <!-- Implementation Introduction In this resource we use the "Watch CSS" option
+    of Flickity to control when the slider is on/off. There are multiple ways to
+    initialized and control Flickity. Slider Group Your slider should be wrapped
+    in an element with the attribute [data-flickity-type="cards"]. When having
+    multiple Flickty sliders you can also use another attribute value here, for
+    example [data-flickity-type="gallery"]. The script assigns each of these
+    containers a unique ID and sets attributes to store the number of slides
+    [data-flickity-count] and the active status [data-flickity-status].‍ Slider
+    List Inside the slider container, include an element with the attribute
+    [data-flickity-list]. This is the element on which Flickity is initialized
+    to display your slides.‍ Slider Slides Each individual slide should have the
+    attribute [data-flickity-item]. Previous/Next Buttons *optional Previous
+    Button: An element with [data-flickity-control="prev"] lets users navigate
+    to the previous slide. The script automatically disables this button when
+    the first slide is active. Next Button: An element with
+    [data-flickity-control="next"] lets users navigate to the next slide. This
+    button is disabled when there are no more slides to show—especially
+    considering the number of visible slides. Dots / Pagination *optional Place
+    elements with the attribute [data-flickity-dot] as pagination controls. When
+    a dot is clicked, the slider moves to the corresponding slide (or the
+    maximum valid slide, if multiple items are in view). The script updates dots
+    during slide changes so that the dot matching the active (or last valid)
+    slide gets marked with [data-flickity-dot="active"]. This lets you style the
+    active dot (e.g., change its background color) via CSS. Multiple Sliders The
+    script is built to handle multiple slider groups on a single page. Each
+    slider group is independently initialized with a unique ID, ensuring that
+    their navigation controls and dot updates don’t interfere with one another.
+    Responsive Behavior Viewport Columns The number of slides visible at one
+    time is controlled by the CSS custom property var(--flick-col) on the slider
+    container. The gap can be set via var(--flick-gap) variable. Enable/Disable
+    Flickity with CSS If the total number of slides is less than what’s visible,
+    you can disable the slider via CSS. Conversely, when there are enough slides
+    for the current viewport, you can re-enable it. /* Desktop */ @media screen
+    and (min-width: 992px) { [data-flickity-type="cards"] { --flick-col: 3;
+    --flick-gap: 2em; } /* Turn Flickity OFF & Hide Controls */
+    [data-flickity-type="cards"]:is([data-flickity-count="1"],
+    [data-flickity-count="2"], [data-flickity-count="3"])
+    [data-flickity-list]::after {content:""; display: block;}
+    [data-flickity-type="cards"]:is([data-flickity-count="1"],
+    [data-flickity-count="2"], [data-flickity-count="3"]) [data-flickity-list]
+    {display: flex;} [data-flickity-type="cards"]:is([data-flickity-count="1"],
+    [data-flickity-count="2"], [data-flickity-count="3"])
+    [data-flickity-controls] {display: none;} [data-flickity-type="cards"]
+    [data-flickity-dot]:nth-last-child(-n+2) {display: none;} /* Hide last two
+    dots */ } More Information For advanced customization or additional options,
+    refer to the Flickity Documentation. -->
+  </body>
+</html>

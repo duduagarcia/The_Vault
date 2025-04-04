@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #dcdcda;
+      }
+
+      /* OSMO */
+      .p-small {
+        font-size: 0.875em;
+        margin: 0;
+      }
+
+      .socials-row {
+        grid-column-gap: 1.5em;
+        grid-row-gap: 1.5em;
+        flex-flow: row;
+        display: flex;
+      }
+
+      .menu-bg {
+        z-index: 0;
+        position: absolute;
+        inset: 0%;
+      }
+
+      .bg-panel {
+        z-index: 0;
+        background-color: #e3e1de;
+        border-top-left-radius: 1.25em;
+        border-bottom-left-radius: 1.25em;
+        position: absolute;
+        inset: 0%;
+      }
+
+      .bg-panel.first {
+        background-color: #ff4c24;
+      }
+
+      .bg-panel.second {
+        background-color: #fff;
+      }
+
+      .nav {
+        z-index: 9;
+        width: 100%;
+        height: 100vh;
+        margin-left: auto;
+        margin-right: auto;
+        display: none;
+        position: fixed;
+        inset: 0%;
+      }
+
+      .menu {
+        grid-column-gap: 5em;
+        grid-row-gap: 5em;
+        flex-flow: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 35em;
+        height: 100%;
+        margin-left: auto;
+        padding-top: 6em;
+        padding-bottom: 2em;
+        position: relative;
+        overflow: auto;
+      }
+
+      .eyebrow {
+        z-index: 1;
+        color: #ff4c24;
+        text-transform: uppercase;
+        font-family: RM Mono, Arial, sans-serif;
+        font-weight: 400;
+        position: relative;
+      }
+
+      .menu-inner {
+        z-index: 1;
+        grid-column-gap: 5em;
+        grid-row-gap: 5em;
+        flex-flow: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        height: 100%;
+        display: flex;
+        position: relative;
+        overflow: auto;
+      }
+
+      .p-large {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 1.125em;
+      }
+
+      .p-large.text-link {
+        color: #131313;
+      }
+
+      .menu-details {
+        grid-column-gap: 1.25em;
+        grid-row-gap: 1.25em;
+        flex-flow: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-left: 2em;
+        display: flex;
+      }
+
+      .menu-list-item {
+        height: 6em;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .menu-list {
+        flex-flow: column;
+        width: 100%;
+        margin-bottom: 0;
+        padding-left: 0;
+        list-style: none;
+        display: flex;
+      }
+
+      .menu-link {
+        grid-column-gap: 0.75em;
+        grid-row-gap: 0.75em;
+        color: #131313;
+        width: 100%;
+        padding-top: 0.75em;
+        padding-bottom: 0.75em;
+        padding-left: 2em;
+        text-decoration: none;
+        display: flex;
+      }
+
+      .menu-link-heading {
+        z-index: 1;
+        text-transform: uppercase;
+        font-family: PP Neue Corp Tight, Arial, sans-serif;
+        font-size: 5.625em;
+        font-weight: 700;
+        line-height: 0.75;
+        transition: transform 0.55s cubic-bezier(0.65, 0.05, 0, 1);
+        position: relative;
+      }
+
+      .overlay {
+        z-index: 0;
+        cursor: pointer;
+        background-color: #13131366;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0%;
+      }
+
+      .menu-button {
+        z-index: 10;
+        grid-column-gap: 0.625em;
+        grid-row-gap: 0.625em;
+        background-color: #0000;
+        justify-content: flex-end;
+        align-items: center;
+        margin: -1em;
+        padding: 1em;
+        display: flex;
+      }
+
+      .menu-button-text {
+        flex-flow: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        height: 1.5em;
+        display: flex;
+        overflow: hidden;
+      }
+
+      .icon-wrap {
+        transition: transform 0.4s cubic-bezier(0.65, 0.05, 0, 1);
+      }
+
+      .menu-button-icon {
+        width: 1em;
+        height: 1em;
+      }
+
+      .header {
+        z-index: 10;
+        justify-content: flex-end;
+        align-items: center;
+        display: flex;
+        position: fixed;
+        top: 2em;
+        left: 2em;
+        right: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p data-menu-toggle="">menu</button>
+      <div data-nav="closed" class="nav">
+        <div data-menu-toggle="" class="overlay"></div>
+        <nav class="menu">
+          <div class="menu-bg">
+            <div class="bg-panel first"></div>
+            <div class="bg-panel second"></div>
+            <div class="bg-panel"></div>
+          </div>
+          <div class="menu-inner">
+            <ul class="menu-list">
+              <li class="menu-list-item">
+                <a href="#" class="menu-link w-inline-block">
+                  <p class="menu-link-heading">About us</p>
+                  <p class="eyebrow">01</p>
+                </a>
+              </li>
+              <li class="menu-list-item">
+                <a href="#" class="menu-link w-inline-block">
+                  <p class="menu-link-heading">Our work</p>
+                  <p class="eyebrow">02</p>
+                </a>
+              </li>
+              <li class="menu-list-item">
+                <a href="#" class="menu-link w-inline-block">
+                  <p class="menu-link-heading">Services</p>
+                  <p class="eyebrow">03</p>
+                </a>
+              </li>
+              <li class="menu-list-item">
+                <a href="#" class="menu-link w-inline-block">
+                  <p class="menu-link-heading">Blog</p>
+                  <p class="eyebrow">04</p>
+                </a>
+              </li>
+              <li class="menu-list-item">
+                <a href="#" class="menu-link w-inline-block">
+                  <p class="menu-link-heading">Contact us</p>
+                  <p class="eyebrow">05</p>
+                </a>
+              </li>
+            </ul>
+            <div class="menu-details">
+              <p data-menu-fade="" class="p-small">Socials</p>
+              <div class="socials-row">
+                <a data-menu-fade="" href="#" class="p-large text-link"
+                  >Instagram</a
+                >
+                <a data-menu-fade="" href="#" class="p-large text-link"
+                  >LinkedIn</a
+                >
+                <a data-menu-fade="" href="#" class="p-large text-link"
+                  >X/Twitter</a
+                >
+                <a data-menu-fade="" href="#" class="p-large text-link"
+                  >Awwwards</a
+                >
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
+    <script>
+      gsap.registerPlugin(CustomEase);
+
+      CustomEase.create("main", "0.65, 0.01, 0.05, 0.99");
+
+      gsap.defaults({
+        ease: "main",
+        duration: 0.7,
+      });
+
+      function initMenu() {
+        let navWrap = document.querySelector(".nav");
+        let state = navWrap.getAttribute("data-nav");
+        let overlay = navWrap.querySelector(".overlay");
+        let menu = navWrap.querySelector(".menu");
+        let bgPanels = navWrap.querySelectorAll(".bg-panel");
+        let menuToggles = document.querySelectorAll("[data-menu-toggle]");
+        let menuLinks = navWrap.querySelectorAll(".menu-link");
+        let fadeTargets = navWrap.querySelectorAll("[data-menu-fade]");
+        // let menuButton = document.querySelector(".menu-button");
+        // let menuButtonTexts = menuButton.querySelectorAll("p");
+        let menuButtonIcon = menuButton.querySelector(".menu-button-icon");
+
+        let tl = gsap.timeline();
+
+        const openNav = () => {
+          navWrap.setAttribute("data-nav", "open");
+
+          tl.clear()
+            .set(navWrap, { display: "block" })
+            .set(menu, { xPercent: 0 }, "<")
+            // .fromTo(
+            //   menuButtonTexts,
+            //   { yPercent: 0 },
+            //   { yPercent: -100, stagger: 0.2 }
+            // )
+            .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315 }, "<")
+            .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
+            .fromTo(
+              bgPanels,
+              { xPercent: 101 },
+              { xPercent: 0, stagger: 0.12, duration: 0.575 },
+              "<"
+            )
+            .fromTo(
+              menuLinks,
+              { yPercent: 140, rotate: 10 },
+              { yPercent: 0, rotate: 0, stagger: 0.05 },
+              "<+=0.35"
+            )
+            .fromTo(
+              fadeTargets,
+              { autoAlpha: 0, yPercent: 50 },
+              { autoAlpha: 1, yPercent: 0, stagger: 0.04 },
+              "<+=0.2"
+            );
+        };
+
+        const closeNav = () => {
+          navWrap.setAttribute("data-nav", "closed");
+
+          tl.clear()
+            .to(overlay, { autoAlpha: 0 })
+            .to(menu, { xPercent: 120 }, "<")
+            .to(menuButtonTexts, { yPercent: 0 }, "<")
+            .to(menuButtonIcon, { rotate: 0 }, "<")
+            .set(navWrap, { display: "none" });
+        };
+
+        // Toggle menu open / close depending on its current state
+        menuToggles.forEach((toggle) => {
+          toggle.addEventListener("click", () => {
+            state = navWrap.getAttribute("data-nav");
+            if (state === "open") {
+              closeNav();
+            } else {
+              openNav();
+            }
+          });
+        });
+
+        // If menu is open, you can close it using the "escape" key
+        document.addEventListener("keydown", (e) => {
+          if (
+            e.key === "Escape" &&
+            navWrap.getAttribute("data-nav") === "open"
+          ) {
+            closeNav();
+          }
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initMenu();
+      });
+    </script>
+  </body>
+</html>

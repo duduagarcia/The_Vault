@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #dcdcda;
+      }
+
+      /* OSMO */
+      .cursor {
+        z-index: 100;
+        pointer-events: none;
+        position: fixed;
+        inset: 0% auto auto 0%;
+      }
+
+      .cursor-inner {
+        width: 2em;
+      }
+
+      .cursor-inner.pointer {
+        width: 2.5em;
+      }
+
+      /* Hide browser default cursor */
+      html {
+        cursor: none !important;
+      }
+
+      /* Hide custom cursor and pointer cursor */
+      .cursor,
+      .cursor-inner.pointer {
+        display: none;
+      }
+
+      /* Show custom cursor only when user is on the site */
+      html:hover .cursor {
+        display: block;
+      }
+
+      /* Replace normal cursor with pointer on hover of link/button/custom element */
+      body:has(a:hover) .cursor-inner.pointer,
+      body:has(button:hover) .cursor-inner.pointer,
+      body:has([data-cursor]:hover) .cursor-inner.pointer {
+        display: block;
+      }
+      body:has(a:hover) .cursor-inner.regular,
+      body:has(button:hover) .cursor-inner.regular,
+      body:has([data-cursor]:hover) .cursor-inner.regular {
+        display: none;
+      }
+
+      /* Hide custom cursor on touch screens */
+      @media (hover: none) and (pointer: coarse) {
+        .cursor {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="cursor">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          viewbox="0 0 25 38"
+          fill="none"
+          class="cursor-inner regular"
+        >
+          <path
+            d="M2.5 0H0.5V34H4.5V32H6.5V30H8.5V28H10.5V32H12.5V36H14.5V38H18.5V36H20.5V32H18.5V28H16.5V26H24.5V22H22.5V20H20.5V18H18.5V16H16.5V14H14.5V12H12.5V10H10.5V8H8.5V6H6.5V4H4.5V2H2.5V0Z"
+            fill="#131313"
+          ></path>
+          <path
+            d="M4.5 4H2.5V32H4.5V30H6.5V28H8.5V26H10.5V28H12.5V32H14.5V36H18.5V32H16.5V28H14.5V24H22.5V22H20.5V20H18.5V18H16.5V16H14.5V14H12.5V12H10.5V10H8.5V8H6.5V6H4.5V4Z"
+            fill="#EFEEEC"
+          ></path>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          viewbox="0 0 30 38"
+          fill="none"
+          class="cursor-inner pointer"
+        >
+          <path
+            d="M12.3529 0H8.82353V1.72727L7.05882 1.72727V17.2727H5.29412L5.29412 15.5455H0V20.7273H1.76471V22.4545H3.52941V25.9091H5.29412V29.3636H7.05882V32.8182H8.82353V38H26.4706V32.8182H28.2353V27.6364H30V15.5455H28.2353V13.8182H26.4706V12.0909H22.9412L22.9412 10.3636H17.6471V8.63636H14.1176V1.72727L12.3529 1.72727V0Z"
+            fill="#131313"
+          ></path>
+          <path
+            d="M8.82347 1.72729V20.7273H7.05877V19H5.29406V17.2727H1.76465V20.7273H3.52935V22.4546H5.29406V25.9091H7.05877V29.3637H8.82347V32.8182H10.5882V36.2727H24.7058V32.8182H26.4705V27.6364H28.2352V15.5455H26.4705V13.8182H24.7058V19H22.9411V12.0909H19.4117V17.2727H17.647V10.3637H14.1176V17.2727H12.3529V1.72729H8.82347Z"
+            fill="#EFEEEC"
+          ></path>
+        </svg>
+      </div>
+    </main>
+    <script>
+      function initCursor() {
+        const cursor = document.querySelector(".cursor");
+        const innerElements = cursor.querySelectorAll(".cursor-inner");
+
+        innerElements.forEach((el) => (el.style.transformOrigin = "50% 50%"));
+
+        let currentRotation = 0;
+        let targetRotation = 0;
+        let lastX = 0;
+        let lastTime = performance.now();
+
+        document.addEventListener("mousemove", (e) => {
+          // Make the cursor follow the actual client position
+          cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+
+          // Get current time in miliseconds
+          const currentTime = performance.now();
+
+          // Calculate ellasped time since last move
+          const timeDifference = currentTime - lastTime;
+
+          if (timeDifference > 0) {
+            const positionDifference = e.clientX - lastX;
+            const velocityX = positionDifference / timeDifference;
+
+            // Clamp the rotation between -70 and 70 degrees
+            targetRotation = Math.max(Math.min(velocityX * 100, 70), -70);
+          }
+          lastX = e.clientX;
+          lastTime = currentTime;
+        });
+
+        // Use a RAF method to match display refresh rate for smoothest result
+        function animateRotation() {
+          currentRotation += (targetRotation - currentRotation) * 0.1;
+          targetRotation += (0 - targetRotation) * 0.05;
+          innerElements.forEach(
+            (el) => (el.style.transform = `rotate(${currentRotation}deg)`)
+          );
+          requestAnimationFrame(animateRotation);
+        }
+        animateRotation();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initCursor();
+      });
+    </script>
+  </body>
+</html>

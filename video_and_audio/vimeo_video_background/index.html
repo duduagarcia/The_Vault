@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #dcdcda;
+      }
+
+      /* OSMO */
+      .vimeo-bg {
+        pointer-events: auto;
+        color: #efeeec;
+        isolation: isolate;
+        background-color: #131313;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        transform: translateX(0);
+      }
+
+      .vimeo-bg-video {
+        background-color: #000;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .vimeo-bg__iframe-wrapper {
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        display: flex;
+        position: absolute;
+      }
+
+      .vimeo-bg__before {
+        padding-top: 62.5%;
+      }
+
+      .vimeo-bg__iframe {
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+
+      .vimeo-bg__placeholder {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.3s linear;
+        display: block;
+        position: absolute;
+      }
+
+      .vimeo-bg[data-vimeo-activated="true"][data-vimeo-loaded="true"]
+        .vimeo-bg__placeholder {
+        opacity: 0;
+        transition-delay: 0.2s;
+      }
+
+      /* Optional: Play/Pause */
+
+      .vimeo-bg__btn {
+        -webkit-backdrop-filter: blur(1em);
+        backdrop-filter: blur(1em);
+        background-color: #64646433;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        width: 3em;
+        height: 3em;
+        transition: opacity 0.3s linear;
+        display: flex;
+        position: relative;
+      }
+
+      .vimeo-bg__play {
+        cursor: pointer;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        position: absolute;
+        bottom: 4vw;
+        right: 4vw;
+      }
+
+      .vimeo-bg__btn-play-svg {
+        width: 40%;
+      }
+
+      .vimeo-bg__pause {
+        cursor: pointer;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        position: absolute;
+        bottom: 4vw;
+        right: 4vw;
+        display: none;
+      }
+
+      .vimeo-bg[data-vimeo-playing="true"] .vimeo-bg__pause {
+        display: flex;
+      }
+
+      .vimeo-bg__btn-pause-svg {
+        width: 50%;
+      }
+
+      .vimeo-bg[data-vimeo-playing="true"] .vimeo-bg__pause,
+      .vimeo-bg[data-vimeo-playing="false"] .vimeo-bg__play {
+        opacity: 1;
+      }
+
+      .vimeo-bg[data-vimeo-playing="true"] .vimeo-bg__play,
+      .vimeo-bg[data-vimeo-playing="false"] .vimeo-bg__pause {
+        opacity: 0;
+      }
+
+      @media screen and (max-width: 991px) {
+        .vimeo-bg__play,
+        .vimeo-bg__pause {
+          bottom: 1em;
+          right: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      data-vimeo-playing="false"
+      class="vimeo-bg"
+      data-vimeo-activated="false"
+      data-vimeo-bg-init=""
+      data-vimeo-paused-by-user="false"
+      data-vimeo-autoplay="true"
+      data-vimeo-loaded="false"
+      data-vimeo-update-size="true"
+      data-vimeo-video-id="1019191082"
+    >
+      <div class="vimeo-bg__iframe-wrapper">
+        <div class="vimeo-bg__before"></div>
+        <iframe
+          src=""
+          width="640"
+          height="360"
+          frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; encrypted-media"
+          class="vimeo-bg__iframe"
+        ></iframe>
+      </div>
+      <img
+        src="https://cdn.prod.website-files.com/678cfcc728627be671c506f8/67911be41e41bff103224c5c_dario-rawert-OmvMDiMB_OI-unsplash.avif"
+        alt=""
+        loading="eager"
+        class="vimeo-bg__placeholder"
+      />
+      <!-- Optional: Play & Pause -->
+      <div data-vimeo-control="play" class="vimeo-bg__play">
+        <div class="vimeo-bg__btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="100%"
+            viewbox="0 0 24 24"
+            fill="none"
+            class="vimeo-bg__btn-play-svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M6.38178 6.13982C6.40762 5.94017 6.48425 5.74878 6.60555 5.58089C6.72686 5.413 6.88949 5.27326 7.08049 5.17279C7.2715 5.07232 7.48559 5.01391 7.70574 5.00219C7.92587 4.99048 8.14597 5.02579 8.3485 5.10532C9.37235 5.50436 11.6669 6.45272 14.5784 7.98469C17.4908 9.51754 19.5395 10.8562 20.4294 11.4635C21.1891 11.9829 21.191 13.013 20.4304 13.5342C19.5491 14.1381 17.5256 15.4591 14.5784 17.0113C11.6283 18.5635 9.36078 19.5005 8.34657 19.8942C7.47311 20.2343 6.49554 19.7183 6.38178 18.8597C6.24873 17.856 6 15.5769 6 12.4989C6 9.42262 6.24777 7.14443 6.38178 6.13982Z"
+              fill="currentColor"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div data-vimeo-control="pause" class="vimeo-bg__pause">
+        <div class="vimeo-bg__btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="100%"
+            viewbox="0 0 24 24"
+            fill="none"
+            class="vimeo-bg__btn-pause-svg"
+          >
+            <path
+              d="M8 6.5C8 6.22386 8.22386 6 8.5 6H10.5C10.7761 6 11 6.22386 11 6.5V17.5C11 17.7761 10.7761 18 10.5 18H8.5C8.22386 18 8 17.7761 8 17.5V6.5Z"
+              fill="currentColor"
+            ></path>
+            <path
+              d="M14 6.5C14 6.22386 14.2239 6 14.5 6H16.5C16.7761 6 17 6.22386 17 6.5V17.5C17 17.7761 16.7761 18 16.5 18H14.5C14.2239 18 14 17.7761 14 17.5V6.5Z"
+              fill="currentColor"
+            ></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+      function initVimeoBGVideo() {
+        // Select all elements that have [data-vimeo-bg-init]
+        const vimeoPlayers = document.querySelectorAll("[data-vimeo-bg-init]");
+
+        vimeoPlayers.forEach(function (vimeoElement, index) {
+          // Add Vimeo URL ID to the iframe [src]
+          // Looks like: https://player.vimeo.com/video/1019191082
+          const vimeoVideoID = vimeoElement.getAttribute("data-vimeo-video-id");
+          if (!vimeoVideoID) return;
+          const vimeoVideoURL = `https://player.vimeo.com/video/${vimeoVideoID}?api=1&background=1&autoplay=0&loop=1&muted=1`;
+          vimeoElement
+            .querySelector("iframe")
+            .setAttribute("src", vimeoVideoURL);
+
+          // Assign an ID to each element
+          const videoIndexID = "vimeo-bg-index-" + index;
+          vimeoElement.setAttribute("id", videoIndexID);
+
+          const iframeID = vimeoElement.id;
+          const player = new Vimeo.Player(iframeID);
+
+          let videoAspectRatio;
+
+          // Update Aspect Ratio if [data-vimeo-update-size="true"]
+          if (vimeoElement.getAttribute("data-vimeo-update-size") === "true") {
+            player.getVideoWidth().then(function (width) {
+              player.getVideoHeight().then(function (height) {
+                videoAspectRatio = height / width;
+                const beforeEl = vimeoElement.querySelector(
+                  ".vimeo-player__before"
+                );
+                if (beforeEl) {
+                  beforeEl.style.paddingTop = videoAspectRatio * 100 + "%";
+                }
+              });
+            });
+          }
+
+          // Function to adjust video sizing
+          function adjustVideoSizing() {
+            const containerAspectRatio =
+              (vimeoElement.offsetHeight / vimeoElement.offsetWidth) * 100;
+
+            const iframeWrapper = vimeoElement.querySelector(
+              ".vimeo-bg__iframe-wrapper"
+            );
+            if (iframeWrapper && videoAspectRatio) {
+              if (containerAspectRatio > videoAspectRatio * 100) {
+                iframeWrapper.style.width = `${
+                  (containerAspectRatio / (videoAspectRatio * 100)) * 100
+                }%`;
+              } else {
+                iframeWrapper.style.width = "";
+              }
+            }
+          }
+
+          // Adjust video sizing initially
+          if (vimeoElement.getAttribute("data-vimeo-update-size") === "true") {
+            adjustVideoSizing();
+            player.getVideoWidth().then(function () {
+              player.getVideoHeight().then(function () {
+                adjustVideoSizing();
+              });
+            });
+          } else {
+            adjustVideoSizing();
+          }
+
+          // Adjust video sizing on resize
+          window.addEventListener("resize", adjustVideoSizing);
+
+          // Loaded
+          player.on("play", function () {
+            vimeoElement.setAttribute("data-vimeo-loaded", "true");
+          });
+
+          // Autoplay
+          if (vimeoElement.getAttribute("data-vimeo-autoplay") === "false") {
+            // Autoplay = false
+            player.pause();
+          } else {
+            // Autoplay = true
+            // If paused-by-user === false, do scroll-based autoplay
+            if (
+              vimeoElement.getAttribute("data-vimeo-paused-by-user") === "false"
+            ) {
+              function checkVisibility() {
+                const rect = vimeoElement.getBoundingClientRect();
+                const inView = rect.top < window.innerHeight && rect.bottom > 0;
+                inView ? vimeoPlayerPlay() : vimeoPlayerPause();
+              }
+
+              // Initial check
+              checkVisibility();
+
+              // Handle scroll
+              window.addEventListener("scroll", checkVisibility);
+            }
+          }
+
+          // Function: Play Video
+          function vimeoPlayerPlay() {
+            vimeoElement.setAttribute("data-vimeo-activated", "true");
+            vimeoElement.setAttribute("data-vimeo-playing", "true");
+            player.play();
+          }
+
+          // Function: Pause Video
+          function vimeoPlayerPause() {
+            vimeoElement.setAttribute("data-vimeo-playing", "false");
+            player.pause();
+          }
+
+          // Click: Play
+          const playBtn = vimeoElement.querySelector(
+            '[data-vimeo-control="play"]'
+          );
+          if (playBtn) {
+            playBtn.addEventListener("click", function () {
+              vimeoPlayerPlay();
+            });
+          }
+
+          // Click: Pause
+          const pauseBtn = vimeoElement.querySelector(
+            '[data-vimeo-control="pause"]'
+          );
+          if (pauseBtn) {
+            pauseBtn.addEventListener("click", function () {
+              vimeoPlayerPause();
+              // If paused by user => kill the scroll-based autoplay
+              if (vimeoElement.getAttribute("data-vimeo-autoplay") === "true") {
+                vimeoElement.setAttribute("data-vimeo-paused-by-user", "true");
+                // Removing scroll listener (if you’d like)
+                window.removeEventListener("scroll", checkVisibility);
+              }
+            });
+          }
+        });
+      }
+
+      // Initialize Vimeo Background Video
+      document.addEventListener("DOMContentLoaded", function () {
+        initVimeoBGVideo();
+      });
+    </script>
+  </body>
+</html>

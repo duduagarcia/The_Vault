@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #dcdcda;
+      }
+
+      /* OSMO */
+      .image-cycle-collection {
+        width: min(95vw, 60em);
+        position: relative;
+      }
+
+      .image-cycle-collection__before {
+        padding-top: 66.666%;
+      }
+
+      .image-cycle-collection__list {
+        z-index: 0;
+        border-radius: 2em;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+      }
+
+      .image-cycle-collection__item {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      [data-image-cycle-item="active"] {
+        transition: opacity 0.4s ease 0s, visibility 0s ease 0s;
+        opacity: 1;
+        visibility: visible;
+        z-index: 3;
+      }
+
+      [data-image-cycle-item="previous"] {
+        transition: opacity 0.4s ease 0.4s, visibility 0s ease 0.4s;
+        opacity: 0;
+        visibility: visible;
+        z-index: 2;
+      }
+
+      [data-image-cycle-item="not-active"] {
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1;
+      }
+
+      .image-cycle-collection__img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+
+      @media screen and (max-width: 767px) {
+        .image-cycle-collection__list {
+          border-radius: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="image-cycle-collection">
+        <div class="image-cycle-collection__before"></div>
+        <div class="image-cycle-collection__list" data-image-cycle="">
+          <div
+            class="image-cycle-collection__img"
+            data-image-cycle-item=""
+            class="image-cycle-collection__item"
+          >
+            <img
+              src="https://cdn.prod.website-files.com/679e2a340ce9c67cecbca3ad/679e2c81170b6a90046718a2_image-1.webp"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+          <div
+            class="image-cycle-collection__img"
+            data-image-cycle-item=""
+            class="image-cycle-collection__item"
+          >
+            <img
+              src="https://cdn.prod.website-files.com/679e2a340ce9c67cecbca3ad/679e2c80ab2f91466875df0b_image-2.webp"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+          <div
+            class="image-cycle-collection__img"
+            data-image-cycle-item=""
+            class="image-cycle-collection__item"
+          >
+            <img
+              src="https://cdn.prod.website-files.com/679e2a340ce9c67cecbca3ad/679e2c80f4b142f1a685a2ee_image-3.webp"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+          <div
+            class="image-cycle-collection__img"
+            data-image-cycle-item=""
+            class="image-cycle-collection__item"
+          >
+            <img
+              src="https://cdn.prod.website-files.com/679e2a340ce9c67cecbca3ad/679e2c801b8a79e8393b622b_image-4.webp"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+          <div
+            class="image-cycle-collection__img"
+            data-image-cycle-item=""
+            class="image-cycle-collection__item"
+          >
+            <img
+              src="https://cdn.prod.website-files.com/679e2a340ce9c67cecbca3ad/679e2c803f7f3ff9ad22d21b_image-5.webp"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      function initImageCycle() {
+        document
+          .querySelectorAll("[data-image-cycle]")
+          .forEach((cycleElement) => {
+            const items = cycleElement.querySelectorAll(
+              "[data-image-cycle-item]"
+            );
+            if (items.length < 2) return;
+
+            let currentIndex = 0,
+              intervalId;
+            const duration = 2000;
+            const isTwoItems = items.length === 2;
+
+            // Initialize: First active, others not-active
+            items.forEach((item, i) =>
+              item.setAttribute(
+                "data-image-cycle-item",
+                i ? "not-active" : "active"
+              )
+            );
+
+            function cycleImages() {
+              const prevIndex = currentIndex;
+              currentIndex = (currentIndex + 1) % items.length;
+
+              if (isTwoItems) {
+                // Special case: Only two images → Toggle between "previous" and "active"
+                items[prevIndex].setAttribute(
+                  "data-image-cycle-item",
+                  "previous"
+                );
+              } else {
+                // Normal case: Three or more images
+                items[prevIndex].setAttribute(
+                  "data-image-cycle-item",
+                  "previous"
+                );
+                setTimeout(
+                  () =>
+                    items[prevIndex].setAttribute(
+                      "data-image-cycle-item",
+                      "not-active"
+                    ),
+                  duration
+                );
+              }
+
+              items[currentIndex].setAttribute(
+                "data-image-cycle-item",
+                "active"
+              );
+            }
+
+            const observer = new IntersectionObserver(
+              ([entry]) => {
+                if (entry.isIntersecting && !intervalId)
+                  intervalId = setInterval(cycleImages, duration);
+                else clearInterval(intervalId), (intervalId = null);
+              },
+              { threshold: 0 }
+            );
+
+            observer.observe(cycleElement);
+          });
+      }
+
+      // Initialize Image Cycle
+      document.addEventListener("DOMContentLoaded", function () {
+        initImageCycle();
+      });
+    </script>
+  </body>
+</html>
